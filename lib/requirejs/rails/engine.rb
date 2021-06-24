@@ -21,8 +21,7 @@ module Requirejs
         config.assets.precompile += config.requirejs.precompile
 
         # Check for the `requirejs:precompile:all` top-level Rake task and run the following initialization code.
-        if defined?(Rake.application) && Rake.application.top_level_tasks == ["requirejs:precompile:all"]
-          # Prevent Sprockets from freezing the assets environment, which allows JS compression to be toggled on a per-
+        if defined?(Rake) && Rake.respond_to?(:application) && Rake.application.top_level_tasks.include?("requirejs:precompile:all")          # Prevent Sprockets from freezing the assets environment, which allows JS compression to be toggled on a per-
           # file basis. This trick *will* fail if any of the lines linked to below change.
 
           if ::Rails::VERSION::MAJOR >= 4
